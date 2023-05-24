@@ -4,8 +4,18 @@ export const typeDefs = gql`
   input UserInput {
     name: String!
     email: String!
+    cnpj: String!
     password: String!
-    birthDate: String!
+    phone: String!
+    hour: String!
+    hasPCDadapted: Boolean
+    cep: String!
+    street: String!
+    streetNumber: Int!
+    neighbornhood: String!
+    city: String!
+    state: String!
+    complement: String
   }
 
   input LoginInput {
@@ -38,8 +48,18 @@ export const typeDefs = gql`
     id: Int
     name: String!
     email: String!
-    birthDate: String!
-    addresses: [Address]
+    cnpj: String!
+    password: String!
+    phone: String!
+    hour: String!
+    hasPCDadapted: Boolean
+    cep: String!
+    street: String!
+    streetNumber: Int!
+    neighborhood: String!
+    city: String!
+    state: String!
+    complement: String
   }
 
   type Login {

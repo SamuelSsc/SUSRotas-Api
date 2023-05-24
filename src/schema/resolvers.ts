@@ -2,7 +2,7 @@ import { dataSource } from "../data-source";
 import * as bcrypt from "bcrypt";
 import { CustomError } from "../errors";
 import * as jwt from "jsonwebtoken";
-import { User } from "../entity";
+import { Address, User } from "../entity";
 
 export const resolvers = {
   Query: {
@@ -21,7 +21,7 @@ export const resolvers = {
         }
       });
       const user = await dataSource.findOne(User, {
-        relations: { addresses: true },
+        relations: { address: true },
         where: { id: args.data.id },
       });
 
@@ -59,7 +59,7 @@ export const resolvers = {
         },
         take: limit,
         skip: offset,
-        relations: { addresses: true },
+        relations: { address: true },
       });
       const totalUsers = await dataSource.count(User);
       const totalPages = Math.ceil(totalUsers / limit);
@@ -86,7 +86,17 @@ export const resolvers = {
           name: string;
           email: string;
           password: string;
-          birthDate: string;
+          cnpj: string;
+          phone: string;
+          hour: string;
+          hasPCDadapted: boolean;
+          cep: string;
+          state: string;
+          street: string;
+          streetNumber: number;
+          neighbornhood: string;
+          city: string;
+          complement: string;
         };
       }
     ) => {
@@ -109,8 +119,19 @@ export const resolvers = {
       const user = new User();
       user.name = args.data.name;
       user.email = args.data.email;
-      user.birthDate = args.data.birthDate;
+      user.cnpj = args.data.cnpj;
       user.password = passwordHashed;
+      user.hasPCDadapted = args.data.hasPCDadapted;
+      user.hour = args.data.hour;
+      user.phone = args.data.phone;
+      user.cep = args.data.cep;
+      user.city = args.data.city;
+      user.complement = args.data.complement;
+      user.neighborhood = args.data.neighbornhood;
+      user.state = args.data.state;
+      user.street = args.data.street;
+      user.streetNumber = args.data.streetNumber;
+
       await dataSource.save(user);
 
       return user;

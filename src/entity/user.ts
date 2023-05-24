@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  OneToOne,
+} from "typeorm";
 import { Address } from "./adress";
 
 @Entity()
@@ -13,14 +19,44 @@ export class User {
   email: string;
 
   @Column()
+  cnpj: string;
+
+  @Column()
   password: string;
 
   @Column()
-  birthDate: string;
+  phone: string;
 
-  @OneToMany(() => Address, (address) => address.user, {
+  @Column()
+  hour: string;
+
+  @Column()
+  hasPCDadapted: boolean;
+
+  @Column()
+  cep: string;
+
+  @Column()
+  street: string;
+
+  @Column()
+  streetNumber: number;
+
+  @Column({ nullable: true })
+  complement?: string;
+
+  @Column()
+  neighborhood: string;
+
+  @Column()
+  city: string;
+
+  @Column()
+  state: string;
+
+  @OneToOne(() => Address, (address) => address.user, {
     cascade: true,
     onDelete: "CASCADE",
   })
-  addresses: Address[];
+  address: Address;
 }
